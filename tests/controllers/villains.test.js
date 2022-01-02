@@ -5,8 +5,9 @@ const chai = require('chai')
 const { createSandbox } = require('sinon')
 const sinonChai = require('sinon-chai')
 const models = require('../../models')
-const mockVillainsList = require('../mocks/villains')
+const { mockVillainsList } = require('../mocks/villains')
 const { getAllVillains } = require('../../controllers/villains')
+
 chai.use(sinonChai)
 const { expect } = chai
 
@@ -59,6 +60,16 @@ describe('Controllers-Villains', () => {
 
       expect(stubbedFindAll).to.have.callCount(1)
       expect(stubbedSend).to.have.been.calledWith(mockVillainsList)
+    })
+
+    it('responds with 500 status and error message when database call throws error', async () => {
+      stubbedFindAll.throws('ERROR!')
+
+      await getAllVillains({}, response)
+
+      expect(stubbedFindAll).to.have.callCount(1)
+      expect(stubbedStatus).to.have.been.calledWith(500)
+      expect(stubbedStatusDotSend).to.have.been.calledWith('Unable to retrieve villains, please try again')
     })
   })
 })
