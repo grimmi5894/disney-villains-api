@@ -127,5 +127,16 @@ describe('Controllers-Villains', () => {
       expect(stubbedStatus).to.have.been.calledWith(400)
       expect(stubbedStatusDotSend).to.have.been.calledWith('The following parameters are required: name, movie, slug')
     })
+
+    it('responds with 500 status and error message when database call throws error', async () => {
+      stubbedCreate.throws('ERROR!')
+      const request = { body: mockPostVillainData }
+
+      await saveNewVillain(request, response)
+
+      expect(stubbedCreate).to.have.been.calledWith(mockPostVillainData)
+      expect(stubbedStatus).to.have.been.calledWith(500)
+      expect(stubbedStatusDotSend).to.have.been.calledWith('Unable to save new villain, please try again')
+    })
   })
 })
