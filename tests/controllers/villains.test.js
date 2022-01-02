@@ -8,3 +8,15 @@ const models = require('../../models')
 
 chai.use(sinonChai)
 const { expect } = chai
+
+describe('Controllers-Villains', () => {
+  let response
+  let sandbox
+  let stubbedCreate
+  let stubbedSend
+  let stubbedSendStatus
+  let stubbedFindAll
+  let stubbedFindOne
+  let stubbedStatus
+  let stubbedStatusDotSend
+})
