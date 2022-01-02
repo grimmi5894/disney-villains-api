@@ -19,4 +19,22 @@ describe('Controllers-Villains', () => {
   let stubbedFindOne
   let stubbedStatus
   let stubbedStatusDotSend
+
+  before(() => {
+    sandbox = createSandbox()
+
+    stubbedCreate = sandbox.stub(models.villains, 'create')
+    stubbedSend = sandbox.stub()
+    stubbedSendStatus = sandbox.stub()
+    stubbedFindAll = sandbox.stub(models.villains, 'findAll')
+    stubbedFindOne = sandbox.stub(models.villains, 'findOne')
+    stubbedStatus = sandbox.stub()
+    stubbedStatusDotSend = sandbox.stub()
+
+    response = {
+      send: stubbedSend,
+      sendStatus: stubbedSendStatus,
+      status: stubbedStatus
+    }
+  })
 })
