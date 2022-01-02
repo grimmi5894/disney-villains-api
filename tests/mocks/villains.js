@@ -24,4 +24,14 @@ const mockVillainsList = [{
   deletedAt: null
 }]
 
-module.exports = { mockVillainsList }
+const mockVillain = {
+  id: 4,
+  name: 'Hades',
+  movie: 'Hercules',
+  slug: 'hades',
+  createdAt: '2021-05-24T17:45:01.000Z',
+  updatedAt: '2021-05-24T17:45:01.000Z',
+  deletedAt: null
+}
+
+module.exports = { mockVillainsList, mockVillain }

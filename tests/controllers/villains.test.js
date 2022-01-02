@@ -5,8 +5,8 @@ const chai = require('chai')
 const { createSandbox } = require('sinon')
 const sinonChai = require('sinon-chai')
 const models = require('../../models')
-const { mockVillainsList } = require('../mocks/villains')
-const { getAllVillains } = require('../../controllers/villains')
+const { mockVillainsList, mockVillain } = require('../mocks/villains')
+const { getAllVillains, getVillainBySlug } = require('../../controllers/villains')
 
 chai.use(sinonChai)
 const { expect } = chai
@@ -70,6 +70,18 @@ describe('Controllers-Villains', () => {
       expect(stubbedFindAll).to.have.callCount(1)
       expect(stubbedStatus).to.have.been.calledWith(500)
       expect(stubbedStatusDotSend).to.have.been.calledWith('Unable to retrieve villains, please try again')
+    })
+  })
+
+  describe('getVillainBySlug', () => {
+    it('retrieves villain associated with slug from database and returns JSON using response.send()', async () => {
+      stubbedFindOne.returns(mockVillain)
+      const request = { params: { slug: 'hades' } }
+
+      await getVillainBySlug(request, response)
+
+      expect(stubbedFindOne).to.have.been.calledWith({ where: { slug: 'hades' } })
+      expect(stubbedSend).to.have.been.calledWith(mockVillain)
     })
   })
 })
