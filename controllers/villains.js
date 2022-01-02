@@ -6,4 +6,13 @@ const getAllVillains = async (request, response) => {
   return response.send(villains)
 }
 
-module.exports = { getAllVillains }
+const getVillainBySlug = async (request, response) => {
+  const { slug } = request.params
+  const matchedVillain = await models.villains.findOne({ where: { slug } })
+
+  return matchedVillain
+    ? response.send(matchedVillain)
+    : response.sendStatus(404)
+}
+
+module.exports = { getAllVillains, getVillainBySlug }
