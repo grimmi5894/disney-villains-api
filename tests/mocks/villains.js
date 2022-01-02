@@ -34,4 +34,20 @@ const mockVillain = {
   deletedAt: null
 }
 
-module.exports = { mockVillainsList, mockVillain }
+const mockPostVillainData = {
+  name: 'Red Skull',
+  movie: 'Captain America: The First Avenger',
+  slug: 'red-skull'
+}
+
+const mockPostVillainResponse = {
+  id: 5,
+  name: 'Red Skull',
+  movie: 'Captain America: The First Avenger',
+  slug: 'red-skull',
+  createdAt: '2021-05-24T17:45:01.000Z',
+  updatedAt: '2021-05-24T17:45:01.000Z',
+  deletedAt: null
+}
+
+module.exports = { mockVillainsList, mockVillain, mockPostVillainData, mockPostVillainResponse }
