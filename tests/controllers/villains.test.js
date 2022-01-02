@@ -41,4 +41,8 @@ describe('Controllers-Villains', () => {
   beforeEach(() => {
     stubbedStatus.returns({ send: stubbedStatusDotSend })
   })
+
+  afterEach(() => {
+    sandbox.reset()
+  })
 })
