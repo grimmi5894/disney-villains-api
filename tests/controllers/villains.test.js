@@ -45,4 +45,8 @@ describe('Controllers-Villains', () => {
   afterEach(() => {
     sandbox.reset()
   })
+
+  after(() => {
+    sandbox.restore()
+  })
 })
