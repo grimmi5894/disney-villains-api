@@ -37,4 +37,8 @@ describe('Controllers-Villains', () => {
       status: stubbedStatus
     }
   })
+
+  beforeEach(() => {
+    stubbedStatus.returns({ send: stubbedStatusDotSend })
+  })
 })
