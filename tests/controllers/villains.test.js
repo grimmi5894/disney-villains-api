@@ -117,5 +117,15 @@ describe('Controllers-Villains', () => {
       expect(stubbedStatus).to.have.been.calledWith(201)
       expect(stubbedStatusDotSend).to.have.been.calledWith(mockPostVillainResponse)
     })
+
+    it('responds with 400 status and error message when not all required parameters are met', async () => {
+      const request = { body: { name: mockPostVillainData.name, slug: mockPostVillainData.slug } }
+
+      await saveNewVillain(request, response)
+
+      expect(stubbedCreate).to.have.callCount(0)
+      expect(stubbedStatus).to.have.been.calledWith(400)
+      expect(stubbedStatusDotSend).to.have.been.calledWith('The following parameters are required: name, movie, slug')
+    })
   })
 })
