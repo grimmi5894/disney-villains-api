@@ -5,7 +5,8 @@ const chai = require('chai')
 const { createSandbox } = require('sinon')
 const sinonChai = require('sinon-chai')
 const models = require('../../models')
-
+const mockVillainsList = require('../mocks/villains')
+const { getAllVillains } = require('../../controllers/villains')
 chai.use(sinonChai)
 const { expect } = chai
 
@@ -48,5 +49,16 @@ describe('Controllers-Villains', () => {
 
   after(() => {
     sandbox.restore()
+  })
+
+  describe('getAllVillains', () => {
+    it('gets a list of all villains from database and returns JSON using response.send()', async () => {
+      stubbedFindAll.returns(mockVillainsList)
+
+      await getAllVillains({}, response)
+
+      expect(stubbedFindAll).to.have.callCount(1)
+      expect(stubbedSend).to.have.been.calledWith(mockVillainsList)
+    })
   })
 })
