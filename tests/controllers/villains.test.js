@@ -5,8 +5,8 @@ const chai = require('chai')
 const { createSandbox } = require('sinon')
 const sinonChai = require('sinon-chai')
 const models = require('../../models')
-const { mockVillainsList, mockVillain } = require('../mocks/villains')
-const { getAllVillains, getVillainBySlug } = require('../../controllers/villains')
+const { mockVillainsList, mockVillain, mockPostVillainData, mockPostVillainResponse } = require('../mocks/villains')
+const { getAllVillains, getVillainBySlug, saveNewVillain } = require('../../controllers/villains')
 
 chai.use(sinonChai)
 const { expect } = chai
@@ -103,6 +103,19 @@ describe('Controllers-Villains', () => {
       expect(stubbedFindOne).to.have.been.calledWith({ where: { slug: 'error' } })
       expect(stubbedStatus).to.have.been.calledWith(500)
       expect(stubbedStatusDotSend).to.have.been.calledWith('Unable to retrieve villain, please try again')
+    })
+  })
+
+  describe('saveNewVillain', () => {
+    it('creates new villain in db with data provided and returns 200 status and JSON for new record', async () => {
+      stubbedCreate.returns(mockPostVillainResponse)
+      const request = { body: mockPostVillainData }
+
+      await saveNewVillain(request, response)
+
+      expect(stubbedCreate).to.have.been.calledWith(mockPostVillainData)
+      expect(stubbedStatus).to.have.been.calledWith(201)
+      expect(stubbedStatusDotSend).to.have.been.calledWith(mockPostVillainResponse)
     })
   })
 })
