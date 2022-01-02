@@ -83,5 +83,15 @@ describe('Controllers-Villains', () => {
       expect(stubbedFindOne).to.have.been.calledWith({ where: { slug: 'hades' } })
       expect(stubbedSend).to.have.been.calledWith(mockVillain)
     })
+
+    it('responds with 404 status when no matching villain is found', async () => {
+      stubbedFindOne.returns(null)
+      const request = { params: { slug: 'unknown-slug' } }
+
+      await getVillainBySlug(request, response)
+
+      expect(stubbedFindOne).to.have.been.calledWith({ where: { slug: 'unknown-slug' } })
+      expect(stubbedSendStatus).to.have.been.calledWith(404)
+    })
   })
 })
